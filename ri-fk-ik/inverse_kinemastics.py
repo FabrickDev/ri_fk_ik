@@ -1,8 +1,5 @@
-import sys
-
 import rclpy
 from rclpy.node import Node
-from rclpy.utilities import remove_ros_args
 
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Float64

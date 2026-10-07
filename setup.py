@@ -4,7 +4,7 @@ package_name = 'ri-fk-ik'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='1.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -13,8 +13,8 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='faqisna-pm',
-    maintainer_email='faqisna.pm@gmail.comm',
+    maintainer='faqisna-pm-fabrickdev',
+    maintainer_email='faqisna.pm@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
@@ -24,6 +24,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'inverse_kinematics = ri-fk-ik.inverse_kinematics:main',
+            'forward_kinematics = ri-fk-ik.forward_kinematics:main',
         ],
     },
 )

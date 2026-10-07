@@ -8,7 +8,7 @@ from std_msgs.msg import Float64
 class ForwardKinematics(Node):
 
     def __init__(self):
-        super().__init__('ri-ikfk-node')
+        super().__init__('forward_kinematics')
 
         # Param Robot Based: 
             # https://github.com/Bakso14/robin_bringup
