@@ -1,11 +1,13 @@
+import sys
 import rclpy
 from rclpy.node import Node
+from rclpy.utilities import remove_ros_args
 
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Float64
 
 
-class InverseKinematics(Node):
+class inverse_kinematics(Node):
 
     def __init__(self, Vel=0.0, Omega=0.0):
         super().__init__('inverse_kinematics')
@@ -21,7 +23,7 @@ class InverseKinematics(Node):
         self.Omega = Omega
 
         # Subscribers Based:
-            # https://github.com/FabrickDev/ri-fk-ik/blob/main/assets/subscribers.jpeg
+            # https://github.com/FabrickDev/ri_fk_ik/blob/main/assets/subscribers.jpeg
         # Subscriber Robin Speed (OPtional to Use Value from Terminal/Arguments)
         self.create_subscription(
             Twist,
@@ -44,16 +46,20 @@ class InverseKinematics(Node):
             10
         )
 
+        self.create_timer(0.1, self.publish_sheels)
+
         self.get_logger().info(
-            f'[ri-ikfk-node] Inverse Kinematics aktif | V={self.Vel} m/s | omega={self.Omega} rad/s'
+            f'[ri-ikfk-node] Inverse Kinematics Active | V={self.Vel} m/s | omega={self.Omega} rad/s'
         )
 
     def velocity_callback(self, msg):
-        # Variable Update
+        # Update kecepatan dari topic /input_ik
         self.Vel = msg.linear.x
         self.Omega = msg.angular.z
 
-    def publish_wheels(self):
+    def publish_sheels(self):
+        # Variable Update
+
         ThisVel = self.Vel
         ThisOmega = self.Omega
 
@@ -61,7 +67,7 @@ class InverseKinematics(Node):
         ThisSeparation = self.wheel_separation
 
         # Formula IK Based:
-            # https://github.com/FabrickDev/ri-fk-ik/blob/main/assets/ik.jpeg
+            # https://github.com/FabrickDev/ri_fk_ik/blob/main/assets/ik.jpeg
         phi_L = (2 * ThisVel - ThisOmega * ThisSeparation) / (2 * ThisRadius)
         phi_R = (2 * ThisVel + ThisOmega * ThisSeparation) / (2 * ThisRadius)
 
@@ -103,7 +109,7 @@ def main(args=None):
         rclpy.shutdown()
         return
 
-    node = InverseKinematics(Vel, Omega)
+    node = inverse_kinematics(Vel, Omega)
 
     try:
         rclpy.spin(node)

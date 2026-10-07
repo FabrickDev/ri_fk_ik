@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 from std_msgs.msg import Float64
 
 
-class ForwardKinematics(Node):
+class inverse_kinematics(Node):
 
     def __init__(self):
         super().__init__('forward_kinematics')
@@ -21,12 +21,12 @@ class ForwardKinematics(Node):
         self.Vel_R = 0.0
 
         # Subscribers Based: 
-            # https://github.com/FabrickDev/ri-fk-ik/blob/main/assets/subscribers.jpeg
+            # https://github.com/FabrickDev/ri_fk_ik/blob/main/assets/subscribers.jpeg
 
         # Subscriber Left Wheel
         self.create_subscription(
             Float64,
-            '/left_wheel/velocity',
+            '/left_wheel/command', # TOpic??
             self.left_callback,
             10
         )
@@ -34,7 +34,7 @@ class ForwardKinematics(Node):
         # Subscriber Right WHeel
         self.create_subscription(
             Float64,
-            '/right_wheel/velocity',
+            '/right_wheel/command', # Topic??
             self.right_callback,
             10
         )
@@ -45,12 +45,12 @@ class ForwardKinematics(Node):
     # Callbacks Functions for Subscribers:
     def left_callback(self, msg):
 
-        self.Vel_L = msg.data
+        self.Vel_L = msg.linear.x
         self.fk_calculation()
 
     def right_callback(self, msg):
 
-        self.Vel_R = msg.data
+        self.Vel_R = msg.linear.x
         self.fk_calculation()
 
     # Our Formula or WHatever
@@ -60,7 +60,7 @@ class ForwardKinematics(Node):
         s = self.wheel_separation
 
         # FK Formula Based: 
-            # https://github.com/FabrickDev/ri-fk-ik/blob/main/assets/fk.jpeg
+            # https://github.com/FabrickDev/ri_fk_ik/blob/main/assets/fk.jpeg
 
         V = (r / 2) * (self.Vel_L + self.Vel_R) # Velocity linear
         Omega = (r / s) * (self.Vel_R - self.Vel_L) # Omega angular
@@ -78,7 +78,7 @@ def main(args=None):
 
     rclpy.init(args=args)
 
-    node = ForwardKinematics()
+    node = inverse_kinematics()
 
     try:
         rclpy.spin(node)

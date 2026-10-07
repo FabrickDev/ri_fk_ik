@@ -24,8 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'inverse_kinematics = ri_fk_ik.inverse_kinematics:main',
-            'forward_kinematics = ri_fk_ik.forward_kinematics:main',
+            'inverse_kinematics = ri_fk_ik.inverse_kinematics:main'
         ],
     },
 )
