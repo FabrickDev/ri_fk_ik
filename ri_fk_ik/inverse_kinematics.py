@@ -93,7 +93,6 @@ class inverse_kinematics(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    # Ambil argumen user (buang argumen khusus ROS seperti --ros-args)
     user_args = remove_ros_args(args=sys.argv)[1:]
 
     Vel = 0.0
