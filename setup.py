@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'ri-fk-ik'
+package_name = 'ri_fk_ik'
 
 setup(
     name=package_name,
@@ -24,8 +24,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'inverse_kinematics = ri-fk-ik.inverse_kinematics:main',
-            'forward_kinematics = ri-fk-ik.forward_kinematics:main',
+            'inverse_kinematics = ri_fk_ik.inverse_kinematics:main',
+            'forward_kinematics = ri_fk_ik.forward_kinematics:main',
         ],
     },
 )
