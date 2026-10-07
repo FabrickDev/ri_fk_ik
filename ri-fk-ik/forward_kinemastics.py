@@ -11,8 +11,8 @@ class ForwardKinematics(Node):
         super().__init__('ri-ikfk-node')
 
         # Param Robot Based: 
-        # https://github.com/Bakso14/robin_bringup
-        # https://github.com/Bakso14/robin_description
+            # https://github.com/Bakso14/robin_bringup
+            # https://github.com/Bakso14/robin_description
         self.wheel_radius = 0.03
         self.wheel_separation = 0.17
 
@@ -21,7 +21,7 @@ class ForwardKinematics(Node):
         self.Vel_R = 0.0
 
         # Subscribers Based: 
-        # *SUbscriber LInk
+            # https://github.com/FabrickDev/ri-fk-ik/blob/main/assets/subscribers.jpeg
 
         # Subscriber Left Wheel
         self.create_subscription(
@@ -60,7 +60,7 @@ class ForwardKinematics(Node):
         s = self.wheel_separation
 
         # FK Formula Based: 
-        # *Link FK Formula
+            # https://github.com/FabrickDev/ri-fk-ik/blob/main/assets/fk.jpeg
 
         V = (r / 2) * (self.Vel_L + self.Vel_R) # Velocity linear
         Omega = (r / s) * (self.Vel_R - self.Vel_L) # Omega angular
