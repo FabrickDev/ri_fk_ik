@@ -94,14 +94,6 @@ phi_L = (2 * ThisVel - ThisOmega * ThisSeparation) / (2 * ThisRadius)
 phi_R = (2 * ThisVel + ThisOmega * ThisSeparation) / (2 * ThisRadius)
 ```
 
-### Inverse Kinematics Diagram
-
-The mathematical model used in the node is illustrated below:
-
-![Inverse Kinematics](assets/ik.jpeg)
-
----
-
 ## ROS 2 Communication
 
 ### Subscriber
@@ -142,14 +134,6 @@ self.create_subscription(
     10
 )
 ```
-
-### Subscriber Diagram
-
-The subscriber configuration is illustrated below:
-
-![Subscribers](assets/subscribers.jpeg)
-
----
 
 ## Publishers
 
