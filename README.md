@@ -19,7 +19,7 @@ The inverse kinematics node converts these values into:
 * Right wheel angular velocity (`φR`)
 
 The implemented system is designed to work with the **Robin mobile robot** configuration.
-
+.
 ---
 
 ## Robot Parameters
