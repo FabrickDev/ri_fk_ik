@@ -22,6 +22,17 @@ class inverse_kinematics(Node):
         self.Vel = Vel
         self.Omega = Omega
 
+        # self.IKInit_Publisher = self.create_publisher(
+        #     Twist,
+        #     '/input_ik',
+        #     10
+        # )
+        
+        # ThisInitData = Twist()
+        # ThisInitData.linear.x = self.Vel
+        # ThisInitData.angular.z = self.Omega
+        # self.IKInit_Publisher.publish(ThisInitData)
+
         # Subscribers Based:
             # https://github.com/FabrickDev/ri_fk_ik/blob/main/assets/subscribers.jpeg
         # Subscriber Robin Speed (OPtional to Use Value from Terminal/Arguments)
@@ -46,7 +57,7 @@ class inverse_kinematics(Node):
             10
         )
 
-        self.create_timer(0.1, self.publish_sheels)
+        #self.create_timer(0.1, self.publish_sheels)
 
         self.get_logger().info(
             f'[ri-ikfk-node] Inverse Kinematics Active | V={self.Vel} m/s | omega={self.Omega} rad/s'
@@ -56,7 +67,36 @@ class inverse_kinematics(Node):
         # Update kecepatan dari topic /input_ik
         self.Vel = msg.linear.x
         self.Omega = msg.angular.z
+        ThisVel = self.Vel
+        ThisOmega = self.Omega
+        
+        ThisRadius = self.wheel_radius
+        ThisSeparation = self.wheel_separation
 
+        # Formula IK Based:
+            # https://github.com/FabrickDev/ri_fk_ik/blob/main/assets/ik.jpeg
+        phi_L = (2 * ThisVel - ThisOmega * ThisSeparation) / (2 * ThisRadius)
+        phi_R = (2 * ThisVel + ThisOmega * ThisSeparation) / (2 * ThisRadius)
+
+        left_msg = Float64()
+        right_msg = Float64()
+        left_msg.data = phi_L
+        right_msg.data = phi_R
+
+        # PUBLISHHHHH
+        self.left_publisher.publish(left_msg)
+        self.right_publisher.publish(right_msg)
+
+        # Yapper
+        self.get_logger().info(
+            f'[ri-ikfk-node] Inverse Kinematics Logger | '
+            f'V={ThisVel:.2f} unit/s | '
+            f'omega={ThisOmega:.2f} rad/s | '
+            f'phi_L={phi_L:.2f} rad/s | '
+            f'phi_R={phi_R:.2f} rad/s'
+        )
+
+    # Not Used Yet, But Can Be Used for Timer Based Publish
     def publish_sheels(self):
         # Variable Update
 
