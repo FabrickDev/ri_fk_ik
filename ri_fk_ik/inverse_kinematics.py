@@ -57,7 +57,7 @@ class inverse_kinematics(Node):
             10
         )
 
-        #self.create_timer(0.1, self.publish_sheels)
+        self.create_timer(0.1, self.publish_sheels)
 
         self.get_logger().info(
             f'[ri-ikfk-node] Inverse Kinematics Active | V={self.Vel} m/s | omega={self.Omega} rad/s'
@@ -87,7 +87,7 @@ class inverse_kinematics(Node):
         self.left_publisher.publish(left_msg)
         self.right_publisher.publish(right_msg)
 
-        # Yapper
+        # Logger
         self.get_logger().info(
             f'[ri-ikfk-node] Inverse Kinematics Logger | '
             f'V={ThisVel:.2f} unit/s | '
@@ -96,7 +96,7 @@ class inverse_kinematics(Node):
             f'phi_R={phi_R:.2f} rad/s'
         )
 
-    # Not Used Yet, But Can Be Used for Timer Based Publish
+    # Can Be Used by Timer Based Publish
     def publish_sheels(self):
         # Variable Update
 
